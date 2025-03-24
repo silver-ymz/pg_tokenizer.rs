@@ -47,6 +47,10 @@ jobs:
       CARGO_TERM_COLOR: always
       RUST_BACKTRACE: 1
       RUSTFLAGS: "-Dwarnings"
+      SEMVER: ${{ needs.semver.outputs.SEMVER }}
+      VERSION: ${{ matrix.version }}
+      ARCH: ${{ matrix.arch }}
+      PLATFORM: ${{ matrix.arch == 'x86_64' && 'amd64' || 'arm64' }}
 
     steps:
       - name: Checkout
@@ -54,11 +58,6 @@ jobs:
       - name: Set up Environment
         run: ./tools/setup.sh ${{ matrix.version }}
       - name: Build
-        env:
-          SEMVER: ${{ needs.semver.outputs.SEMVER }}
-          VERSION: ${{ matrix.version }}
-          ARCH: ${{ matrix.arch }}
-          PLATFORM: ${{ matrix.arch == 'x86_64' && 'amd64' || 'arm64' }}
         run: ./tools/package.sh
       - name: Upload Artifacts
         env:
