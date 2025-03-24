@@ -14,7 +14,7 @@ mkdir -p ./build/zip
 cp ./target/schema.sql ./build/zip/pg_tokenizer--$SEMVER.sql
 sed -e "s/@CARGO_VERSION@/$SEMVER/g" <./pg_tokenizer.control >./build/zip/pg_tokenizer.control
 cp ./target/release/libpg_tokenizer.so ./build/zip/pg_tokenizer.so
-zip ./build/postgresql-${VERSION}-pg_tokenizer_${SEMVER}_${ARCH}-linux-gnu.zip -j ./build/zip/*
+zip ./build/postgresql-${VERSION}-pg-tokenizer_${SEMVER}_${ARCH}-linux-gnu.zip -j ./build/zip/*
 
 mkdir -p ./build/deb
 mkdir -p ./build/deb/DEBIAN
@@ -29,7 +29,7 @@ done
 for file in $(ls ./build/zip/*.so | xargs -n 1 basename); do
     cp ./build/zip/$file ./build/deb/usr/lib/postgresql/$VERSION/lib/$file
 done
-echo "Package: postgresql-${VERSION}-pg_tokenizer
+echo "Package: postgresql-${VERSION}-pg-tokenizer
 Version: ${SEMVER}-1
 Section: database
 Priority: optional
@@ -40,6 +40,6 @@ Homepage: https://vectorchord.ai/
 License: Apache-2.0" \
     >./build/deb/DEBIAN/control
 (cd ./build/deb && md5sum usr/share/postgresql/$VERSION/extension/* usr/lib/postgresql/$VERSION/lib/*) >./build/deb/DEBIAN/md5sums
-dpkg-deb --root-owner-group -Zxz --build ./build/deb/ ./build/postgresql-${VERSION}-pg_tokenizer_${SEMVER}-1_${PLATFORM}.deb
+dpkg-deb --root-owner-group -Zxz --build ./build/deb/ ./build/postgresql-${VERSION}-pg-tokenizer_${SEMVER}-1_${PLATFORM}.deb
 
 ls ./build

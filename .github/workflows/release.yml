@@ -64,8 +64,8 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release upload --clobber $SEMVER ./build/postgresql-${VERSION}-pg_tokenizer_${SEMVER}-1_${PLATFORM}.deb
-          gh release upload --clobber $SEMVER ./build/postgresql-${VERSION}-pg_tokenizer_${SEMVER}_${ARCH}-linux-gnu.zip
+          gh release upload --clobber $SEMVER ./build/postgresql-${VERSION}-pg-tokenizer_${SEMVER}-1_${PLATFORM}.deb
+          gh release upload --clobber $SEMVER ./build/postgresql-${VERSION}-pg-tokenizer_${SEMVER}_${ARCH}-linux-gnu.zip
 
   docker:
     runs-on: ubuntu-latest
@@ -86,7 +86,7 @@ jobs:
         run: |
           mkdir -p build
           for arch in amd64 arm64; do
-            gh release download $SEMVER --pattern "postgresql-${{ matrix.version }}-pg_tokenizer_${SEMVER}-1_${arch}.deb" --output ./build/postgresql-${{ matrix.version }}-pg_tokenizer_${SEMVER}-1_${arch}.deb
+            gh release download $SEMVER --pattern "postgresql-${{ matrix.version }}-pg-tokenizer_${SEMVER}-1_${arch}.deb" --output ./build/postgresql-${{ matrix.version }}-pg-tokenizer_${SEMVER}-1_${arch}.deb
           done
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
