@@ -112,7 +112,7 @@ jobs:
           file: ./docker/binary.Dockerfile
           tags: |
             silverha/pg_tokenizer-binary:pg${{ matrix.version }}-v${{ env.SEMVER }}-${{ env.PLATFORM }}
-            ghcr.io/silver-ymz/pg_tokenizer-binary:pg${{ matrix.version }}-v${{ env.SEMVER }}-${{ env.PLATFORM }
+            ghcr.io/silver-ymz/pg_tokenizer-binary:pg${{ matrix.version }}-v${{ env.SEMVER }}-${{ env.PLATFORM }}
           build-args: |
             PG_VERSION=${{ matrix.version }}
             SEMVER=${{ env.SEMVER }}
